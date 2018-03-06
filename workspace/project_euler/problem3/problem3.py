@@ -14,10 +14,20 @@ def get_prime_numbers(max_num):
     return prime_numbers
 
 def prime_factorizate(num):
-    # sqrt(num) * 2 までの素数を調べれば良い
+    # num == sqrt(num) ** 2 なので sqrt(num) までの素数を調べれば良い
     max_root = int(np.ceil(np.sqrt(num)))
     p_nums = get_prime_numbers(max_root)
-    prime_factories = [p for p in p_nums if num % p == 0]
+    prime_factories = set()
+    # 素数で順番に割っていく
+    for p in p_nums:
+        while num % p == 0:
+            # 割り切れる素数を追加
+            prime_factories.add(p)
+            num /= p
+    # 14 == 2 * 7 のような sqrt(num) 以上の素数を含む場合があるので， 1 でないなら追加
+    if num != 1: prime_factories.add(int(num))
+    prime_factories = list(prime_factories)
+    prime_factories.sort()
     return prime_factories
 
 print('13195 の素因数分解は', prime_factorizate(13195))
