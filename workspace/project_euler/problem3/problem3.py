@@ -6,11 +6,16 @@ def get_prime_numbers(max_num):
     sequence = np.array(range(2, max_num + 1))
     prime_numbers = []
     while sequence.any():
-        # 素数を取り出して追加
+        # 素数を取り出す
         p_num = sequence[0]
+        # 現在の素数以前で割っているので，最大値が素数の二乗より小さいなら配列には素数しか残っていない
+        if p_num ** 2 > max_num:
+            break
+        # 素数を追加する
         prime_numbers.append(p_num)
         # 素数で全体を割っていく
         sequence = sequence[sequence % p_num != 0]
+    prime_numbers += list(sequence)
     return prime_numbers
 
 def prime_factorizate(num):
