@@ -2,6 +2,18 @@
 
 import numpy as np
 
+def get_max_prod_and_sequence(num, digits):
+    # num から digits 個の連続する数字を取り出したときの全パターン
+    sequences_by_digits = [num[i:i+digits] for i in range(len(num)-digits+1)]
+    # 連続する数字の全パターンに対して，各桁での総積を求める
+    prod_by_sequence = [np.prod([int(num) for num in sequence]) for sequence in sequences_by_digits]
+
+    # 最大値の取り出し
+    max_prod = max(prod_by_sequence)
+    # 最大値を取る連続数の取り出し
+    max_sequence = sequences_by_digits[np.argmax(prod_by_sequence)]
+    return max_prod, max_sequence
+
 thousand_num = \
     '73167176531330624919225119674426574742355349194934' \
     '96983520312774506326239578318016984801869478851843' \
@@ -24,14 +36,7 @@ thousand_num = \
     '05886116467109405077541002256983155200055935729725' \
     '71636269561882670428252483600823257530420752963450'
 
-digits = 4
-thousand_num_by_digits = [thousand_num[i:i+digits] for i in range(len(thousand_num)-digits+1)]
-nine_cnt = np.array([num.count('9') for num in thousand_num_by_digits])
-indices = np.where(nine_cnt == nine_cnt.max())
-many_nine_nums = [thousand_num_by_digits[i] for i in indices[0]]
-prod_results = [np.prod([int(num) for num in max_num]) for max_num in many_nine_nums]
-
-max_result = max(prod_results)
-max_digits = many_nine_nums[np.argmax(prod_results)]
-
-print('与えられた 1000 桁の数字のうち，隣接する 4 つの数字の総乗の中で最大となる値は {0} で {1}'.format(max_digits, max_result))
+max_prod, max_sequence = get_max_prod_and_sequence(thousand_num, 4)
+print('与えられた 1000 桁の数字のうち，隣接する 4 個の数字の総乗の中で最大となる値は {0} で {1}'.format(max_sequence, max_prod))
+max_prod, max_sequence = get_max_prod_and_sequence(thousand_num, 13)
+print('与えられた 1000 桁の数字のうち，隣接する 13 個の数字の総乗の中で最大となる値は {0} で {1}'.format(max_sequence, max_prod))
