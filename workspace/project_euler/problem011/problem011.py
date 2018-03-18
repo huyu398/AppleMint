@@ -39,3 +39,11 @@ for i in range(len(grid_nums[0])):
         prod_list[str(sequence)] = sequence.prod()
 
 # 斜め方向
+i = 0
+diag_array = np.diag(grid_nums, i)
+while len(diag_array) >= 4:
+    for j in range(len(diag_array) - 4):
+        # (diag_array[j:j+4])
+    i += 1
+    diag_array = np.diag(grid_nums, i)
+
