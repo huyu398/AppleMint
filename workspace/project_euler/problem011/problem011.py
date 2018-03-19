@@ -42,8 +42,19 @@ for i in range(len(grid_nums[0])):
 i = 0
 diag_array = np.diag(grid_nums, i)
 while len(diag_array) >= 4:
-    for j in range(len(diag_array) - 4):
-        # (diag_array[j:j+4])
+    for j in range(len(diag_array) - 3):
+        sequence = diag_array[j:j+4]
+        prod_list[str(sequence)] = sequence.prod()
     i += 1
     diag_array = np.diag(grid_nums, i)
+i = -1
+diag_array = np.diag(grid_nums, i)
+while len(diag_array) >= 4:
+    for j in range(len(diag_array) - 3):
+        sequence = diag_array[j:j+4]
+        prod_list[str(sequence)] = sequence.prod()
+    i -= 1
+    diag_array = np.diag(grid_nums, i)
 
+max_key = max(prod_list, key=prod_list.get)
+print('上下左右斜めのいずれかの方向で連続する 4 つの数字の積のうち最大のものは {0} で {1}'.format(max_key, prod_list[max_key]))
