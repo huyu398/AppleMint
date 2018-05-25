@@ -20,4 +20,4 @@ def get_prime_numbers(max_num):
 
 print('10 以下の素数の和は', sum(get_prime_numbers(10)))
 # sum() では overflow する
-print('200 万以下の素数の和は', np.sum(get_prime_numbers(2000000)))
+print('200 万以下の素数の和は', np.sum(get_prime_numbers(2000000), dtype=np.uint64))
