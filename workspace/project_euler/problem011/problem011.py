@@ -30,21 +30,21 @@ prod_list = {}
 for i in range(len(grid_nums)):
     for j in range(len(grid_nums[i]) - 3):
         sequence = grid_nums[i, j:j+4]
-        prod_list[str(sequence)] = sequence.prod()
+        prod_list[str(sequence)] = sequence.prod(dtype=np.uint64)
 
 # 上下方向
 for i in range(len(grid_nums[0])):
     for j in range(len(grid_nums[0]) - 3):
-        sequence = grid_nums[j:j+4, 0]
-        prod_list[str(sequence)] = sequence.prod()
+        sequence = grid_nums[j:j+4, i]
+        prod_list[str(sequence)] = sequence.prod(dtype=np.uint64)
 
-# 斜め方向
+# 斜め方向 左上から
 i = 0
 diag_array = np.diag(grid_nums, i)
 while len(diag_array) >= 4:
     for j in range(len(diag_array) - 3):
         sequence = diag_array[j:j+4]
-        prod_list[str(sequence)] = sequence.prod()
+        prod_list[str(sequence)] = sequence.prod(dtype=np.uint64)
     i += 1
     diag_array = np.diag(grid_nums, i)
 i = -1
@@ -52,7 +52,25 @@ diag_array = np.diag(grid_nums, i)
 while len(diag_array) >= 4:
     for j in range(len(diag_array) - 3):
         sequence = diag_array[j:j+4]
-        prod_list[str(sequence)] = sequence.prod()
+        prod_list[str(sequence)] = sequence.prod(dtype=np.uint64)
+    i -= 1
+    diag_array = np.diag(grid_nums, i)
+# 斜め方向 右上から
+grid_nums = grid_nums[:, ::-1]
+i = 0
+diag_array = np.diag(grid_nums, i)
+while len(diag_array) >= 4:
+    for j in range(len(diag_array) - 3):
+        sequence = diag_array[j:j+4]
+        prod_list[str(sequence)] = sequence.prod(dtype=np.uint64)
+    i += 1
+    diag_array = np.diag(grid_nums, i)
+i = -1
+diag_array = np.diag(grid_nums, i)
+while len(diag_array) >= 4:
+    for j in range(len(diag_array) - 3):
+        sequence = diag_array[j:j+4]
+        prod_list[str(sequence)] = sequence.prod(dtype=np.uint64)
     i -= 1
     diag_array = np.diag(grid_nums, i)
 
