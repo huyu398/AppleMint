@@ -6,7 +6,7 @@ def get_max_prod_and_sequence(num, digits):
     # num から digits 個の連続する数字を取り出したときの全パターン
     sequences_by_digits = [num[i:i+digits] for i in range(len(num)-digits+1)]
     # 連続する数字の全パターンに対して，各桁での総積を求める
-    prod_by_sequence = [np.prod([int(num) for num in sequence]) for sequence in sequences_by_digits]
+    prod_by_sequence = [np.prod([int(num) for num in sequence], dtype=np.uint64) for sequence in sequences_by_digits]
 
     # 最大値の取り出し
     max_prod = max(prod_by_sequence)
